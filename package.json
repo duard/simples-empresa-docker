@@ -8,9 +8,9 @@
     "test": "nx test"
   },
   "private": true,
-  "dependencies": {},
   "devDependencies": {
     "@nrwl/cli": "13.7.2",
+    "@nrwl/nest": "^13.7.2",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/tao": "13.7.2",
     "@nrwl/workspace": "13.7.2",
