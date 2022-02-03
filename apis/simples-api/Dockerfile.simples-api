@@ -10,4 +10,4 @@ EXPOSE 7001
 EXPOSE 6379
 COPY . .
 
-CMD ["nx", "serve", "simples-api"]
+# CMD ["nx", "serve", "simples-api"]
