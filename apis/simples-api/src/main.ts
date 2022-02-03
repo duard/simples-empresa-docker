@@ -18,9 +18,9 @@ async function bootstrap() {
   const name = config.get('simples_api.name') || 'NO-NAME';
   await app.listen(port);
   Logger.log(
-    `🚀 ${name} is running on [${config.get(
+    `🚀 ${name} is running on :: [${config.get(
       'NODE_ENV'
-    )}] : http://localhost:${port}/${globalPrefix}`
+    )}] :: http://localhost:${port}/${globalPrefix}`
   );
 }
 
