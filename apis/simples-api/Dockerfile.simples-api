@@ -1,7 +1,7 @@
 FROM node:13-alpine as development
 WORKDIR /app
 COPY package.json package-lock.json ./
-# COPY .env.dev ./
+COPY .env.dev ./
 RUN npm install
 RUN npm install -g nx
 ARG node_env=dev

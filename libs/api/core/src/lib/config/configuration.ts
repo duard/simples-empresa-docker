@@ -10,6 +10,10 @@ export const configuration = () => ({
   host: process.env.API_HOST,
   jwtSecret: process.env.JWT_SECRET,
   envFile: process.env.ENV_FILE,
+  simples_api: {
+    name: process.env.API_SIMPLES_API_NAME,
+    port: parseInt(process.env.API_SIMPLES_API_PORT || '3001', 10),
+  },
   database: {
     type: process.env.API_TYPEORM_TYPE || 'mysql',
     port: Number(process.env.API_TYPEORM_PORT),

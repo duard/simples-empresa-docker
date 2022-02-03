@@ -43,7 +43,7 @@ services:
       context: .
       dockerfile: /home/duard/zdev/simples-empresa-docker/apis/simples-api/Dockerfile.simples-api
       target: development
-    # env_file: env.dev
+    env_file: .env.development
     command: nx serve simples-api
     depends_on:
       - redis

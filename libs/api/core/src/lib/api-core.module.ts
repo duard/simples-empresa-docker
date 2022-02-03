@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { configuration } from './config/configuration'
@@ -15,10 +14,6 @@ const ENV = process.env.NODE_ENV
       isGlobal: true,
       load: [configuration],
       validationSchema,
-    }),
-    GraphQLModule.forRoot({
-      autoSchemaFile: true,
-      playground: true,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
