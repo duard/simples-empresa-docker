@@ -1,0 +1,65 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    extra_hosts:
+        - "host.docker.internal:host-gateway"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - HTTP_USER=root
+      - HTTP_PASSWORD=teste123
+    ports:
+      - 8082:8081
+    extra_hosts:
+        - "host.docker.internal:host-gateway"
+    depends_on:
+      - redis
+
+
+  simples-api:
+    build:
+      context: .
+      dockerfile: /home/duard/zdev/simples-empresa-docker/apis/simples-api/Dockerfile
+      target: development
+    # env_file: env.dev
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL="redis://host.docker.internal:6379"
+    ports:
+      - 7001:7001
+    extra_hosts:
+        - "host.docker.internal:host-gateway"
+        - localhost:192.168.100.231
+    links:
+      - redis
+    restart: on-failure
+    volumes:
+      - .:/app
+      - simples-api_vol:/usr/src/simples-api/
+      - node_modules:/usr/src/node_modules/
+    networks:
+      - monorepo_net
+
+
+volumes:
+  simples-api_vol:
+  api-chatclass_vol:
+  api-bot-whatsapp_vol:
+  api-bot-telegram_vol:
+  ms-ms-greeting_vol:
+  node_modules:
+  postgres_data:
+  redis_data:
+
+networks:
+  monorepo_net:
+    driver: bridge
