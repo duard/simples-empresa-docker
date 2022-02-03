@@ -38,19 +38,6 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - monorepo_net
-  pgadmin:
-    container_name: pgadmin4_container
-    image: dpage/pgadmin4
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: root
-    ports:
-      - "5050:80"
-    networks:
-      - monorepo_net
-    logging:
-        driver: none
   simples-api:
     build:
       context: .
@@ -77,16 +64,27 @@ services:
     networks:
       - monorepo_net
 
-
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    networks:
+      - monorepo_net
+    logging:
+        driver: none
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
 volumes:
   simples-api_vol:
-  api-chatclass_vol:
-  api-bot-whatsapp_vol:
-  api-bot-telegram_vol:
-  ms-ms-greeting_vol:
-  node_modules:
+  pgadmin_data:
   postgres_data:
   redis_data:
+  node_modules:
 
 networks:
   monorepo_net:
