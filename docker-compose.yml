@@ -9,7 +9,6 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - redis_data:/data
-
   redis-commander:
     image: rediscommander/redis-commander:latest
     environment:
@@ -38,10 +37,26 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - monorepo_net
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    networks:
+      - monorepo_net
+    logging:
+        driver: none
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
   simples-api:
     build:
-      context: .
-      dockerfile: /home/duard/zdev/simples-empresa-docker/apis/simples-api/Dockerfile.simples-api
+      context: ./
+      dockerfile: apis/simples-api/Dockerfile.simples-api
       target: development
     env_file: .env.development
     command: nx serve simples-api
@@ -64,21 +79,8 @@ services:
     networks:
       - monorepo_net
 
-  pgadmin:
-    container_name: pgadmin4_container
-    image: dpage/pgadmin4
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: root
-    ports:
-      - "5050:80"
-    networks:
-      - monorepo_net
-    logging:
-        driver: none
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
+
+
 volumes:
   simples-api_vol:
   pgadmin_data:
