@@ -1,16 +1,18 @@
 {
-  "root": "apis/simples-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apis/simples-api/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:build",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apis/simples-api",
         "main": "apis/simples-api/src/main.ts",
         "tsConfig": "apis/simples-api/tsconfig.app.json",
-        "assets": ["apis/simples-api/src/assets"]
+        "assets": ["apis/simples-api/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
       },
       "configurations": {
         "production": {
@@ -27,7 +29,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:execute",
+      "executor": "@nrwl/node:node",
       "options": {
         "buildTarget": "simples-api:build"
       }
@@ -43,7 +45,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apis/simples-api"],
       "options": {
-        "jestConfig": "apis/simples-api/jest.config.js",
+        "jestConfig": "apis/simples-api/jest.config.ts",
         "passWithNoTests": true
       }
     }

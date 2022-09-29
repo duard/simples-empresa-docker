@@ -3,5 +3,6 @@
   "projects": {
     "api-core": "libs/api/core",
     "simples-api": "apis/simples-api"
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
